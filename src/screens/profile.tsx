@@ -15,8 +15,10 @@ const Profile = ({ navigation }) => {
     );
     async function getImageFromAsyncStorage() {
       const fileUri = await AsyncStorage.getItem('profilepicture');
-      const base64 = await FileSystem.readAsStringAsync(fileUri); // Read the base64 string from the file
-      setProfilePicture(base64);
+      if (fileUri) {
+        const base64 = await FileSystem.readAsStringAsync(fileUri); // Read the base64 string from the file
+        setProfilePicture(base64);
+      }
     }
     getImageFromAsyncStorage();
     return () => {
@@ -45,7 +47,7 @@ const Profile = ({ navigation }) => {
           <Image
             source={{ uri: "data:image/png;base64," + profilePicture }}
             resizeMode="contain"
-            style={{ height: 100, width: 100 }}
+            style={{ height: 300, width: 300 }}
           />
         ) : (
           <MatIcons name="account-circle" size={100} />
