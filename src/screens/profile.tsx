@@ -21,8 +21,8 @@ const Profile = ({ navigation }) => {
     async function getImageFromAsyncStorage() {
       const fileUri = await AsyncStorage.getItem('profilepicture');
       if (fileUri) {
-        const base64 = await FileSystem.readAsStringAsync(fileUri); // Read the base64 string from the file
-        setProfilePicture(base64);
+        const base64Image = await FileSystem.readAsStringAsync(fileUri); // Read the base64 string from the file
+        setProfilePicture(base64Image);
       }
     }
     getImageFromAsyncStorage();

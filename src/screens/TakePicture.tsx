@@ -26,19 +26,20 @@ export default function TakePicture({ navigation }) {
   }
 
   function toggleCameraType() {
-    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+    setType(currentType => (currentType === CameraType.back ? CameraType.front : CameraType.back));
   }
   const takeSnap = async () => {
     const options = { quality: 1, base64: true };
     const photo = await cameraRef.current.takePictureAsync(options);
+    console.log(photo);
     if (photo.uri) {
       await FileSystem.writeAsStringAsync(photo.uri, photo.base64);
-      console.log('Image saved to file system.',result);
+      console.log('Image saved to file system.');
       DeviceEventEmitter.emit('event.pictureupdate', photo.uri);
       navigation.goBack();
     }
   }
-  
+
   return (
     <View style={styles.container}>
       <Camera
