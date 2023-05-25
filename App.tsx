@@ -20,30 +20,29 @@ import * as Notifications from "expo-notifications";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const registerForPushNotificationsAsync = async () => {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-
-    // If the existing status is not granted, request permission from the user
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-
-    // If permission is still not granted, display an error message
-    if (finalStatus !== "granted") {
-      console.log("Failed to get  notification Permissions!");
-      return;
-    } else {
-      console.log(
-        "FirebaseNotificationInit  notification Permissions Granted!"
-      );
-      FirebaseNotificationInit();
-    }
-  };
-
   useEffect(() => {
+    const registerForPushNotificationsAsync = async () => {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+
+      // If the existing status is not granted, request permission from the user
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+
+      // If permission is still not granted, display an error message
+      if (finalStatus !== "granted") {
+        console.log("Failed to get  notification Permissions!");
+        return;
+      } else {
+        console.log(
+          "FirebaseNotificationInit  notification Permissions Granted!"
+        );
+        FirebaseNotificationInit();
+      }
+    };
     registerForPushNotificationsAsync();
   }, []);
 
