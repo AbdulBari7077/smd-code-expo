@@ -5,15 +5,16 @@ import {
   Button,
   FlatList,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 
 const CountriesList = ({ navigation }: any) => {
-
-
   const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetch("https://api.eatachi.co/api/country")
@@ -22,10 +23,19 @@ const CountriesList = ({ navigation }: any) => {
       })
       .then((newCountries) => {
         setCountries(newCountries);
+        setFilteredCountries(newCountries);
       })
       .catch((err) => Alert.alert("Error", err))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleSearch = (text: string) => {
+    setSearchQuery(text);
+    const filteredCountries = countries.filter((country: any) =>
+      country.Name.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredCountries(filteredCountries);
+  };
 
   const displayCountry = (itemObject: any) => {
     const { index, item } = itemObject;
@@ -66,17 +76,24 @@ const CountriesList = ({ navigation }: any) => {
     );
   };
 
-
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "center" }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <View style={{ flex: 1 }}>
-          <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 20 }}>
+          <Text
+            style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
+          >
             Countries Of the World
           </Text>
-          <FlatList data={countries} renderItem={displayCountry} />
+          <TextInput
+            placeholder="Search Country"
+            style={{ padding: 15, borderColor: "gray", borderWidth: 1, margin: 5, borderRadius: 15 }}
+            value={searchQuery}
+            onChangeText={handleSearch}
+          />
+          <FlatList data={filteredCountries} renderItem={displayCountry} />
         </View>
       )}
     </View>
