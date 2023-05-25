@@ -31,18 +31,14 @@ export default function TakePicture({ navigation }) {
   const takeSnap = async () => {
     const options = { quality: 1, base64: true };
     const photo = await cameraRef.current.takePictureAsync(options);
-    console.debug(Object.keys(photo))
     if (photo.uri) {
-      const fileBase64 = await FileSystem.readAsStringAsync(photo.uri, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
-      await FileSystem.writeAsStringAsync(photo.uri, fileBase64);
-      console.log('Image saved to file system.');
+      await FileSystem.writeAsStringAsync(photo.uri, photo.base64);
+      console.log('Image saved to file system.',result);
       DeviceEventEmitter.emit('event.pictureupdate', photo.uri);
       navigation.goBack();
     }
-
   }
+  
   return (
     <View style={styles.container}>
       <Camera

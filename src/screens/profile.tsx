@@ -12,8 +12,8 @@ const Profile = ({ navigation }) => {
   useEffect(() => {
     DeviceEventEmitter.addListener('event.pictureupdate', async (newPictureURI) => {
       if (newPictureURI) {
-        const base64 = await FileSystem.readAsStringAsync(newPictureURI);
-        setProfilePicture(base64);
+        const base64Image = await FileSystem.readAsStringAsync(newPictureURI);
+        setProfilePicture(base64Image);
         await AsyncStorage.setItem('profilepicture', newPictureURI);
       }
     }
