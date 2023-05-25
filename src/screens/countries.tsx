@@ -76,10 +76,9 @@ const CountriesList = ({ navigation }: any) => {
       </TouchableOpacity>
     );
   };
-
   return (
     <>
-      <FirebaseNotificationInit navigation={navigation} />
+      {/* <FirebaseNotificationInit navigation={navigation} /> */}
       <View style={{ flex: 1, justifyContent: "center" }}>
         {isLoading ? (
           <ActivityIndicator />
@@ -100,7 +99,7 @@ const CountriesList = ({ navigation }: any) => {
                 borderRadius: 15,
               }}
               value={searchQuery}
-              onChangeText={handleSearch}
+              onChangeText={(newText)=>handleSearch(newText)}
             />
             <FlatList data={filteredCountries} renderItem={displayCountry} />
           </View>

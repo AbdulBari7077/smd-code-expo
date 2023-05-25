@@ -11,15 +11,13 @@ const Setting = () => {
   const { user, counter, setCounter } = useContext(AppContext);
 
   useEffect(() => {
-    AsyncStorage.getItem("settings").then((settingsStr) => {
-      if (settingsStr) {
-        const settings = JSON.parse(settingsStr);
-
-        setFirstName(settings.firstName);
-        setLastName(settings.lastName);
-        setInFinalYear(settings.inFinalYear);
-      }
-    });
+    async function updateSettings() {
+      const settings: any = JSON.parse(await AsyncStorage.getItem("settings"));
+      setFirstName(settings.firstName);
+      setLastName(settings.lastName);
+      setInFinalYear(settings.inFinalYear);
+    }
+    updateSettings();
   }, []);
   const saveData = () => {
     Alert.alert("Confirm", "Are you sure you want to save?", [

@@ -57,9 +57,8 @@ export default function App() {
           {/* <Stack.Screen name="Drawer" component={DrawerScreen} /> */}
           <Stack.Screen name="Hometabs" component={HomeTabs} />
           <Stack.Screen name="TakePicture" component={TakePicture} />
-          <Stack.Screen name="Countries" component={CountriesList} />
-          <Stack.Screen
-            name="Cities"
+          {/* <Stack.Screen name="Countries" component={CountriesList} /> */}
+          <Stack.Screen name="Cities"
             component={CitiesList}
             options={({ route }: any) => ({
               headerShown: true,

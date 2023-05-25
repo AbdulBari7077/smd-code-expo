@@ -6,12 +6,17 @@ import * as FileSystem from 'expo-file-system';
 
 
 const Profile = ({ navigation }) => {
-  // const navigation = useNavigation();
+
   const [profilePicture, setProfilePicture]: any = useState();
 
   useEffect(() => {
-    DeviceEventEmitter.addListener('event.pictureupdate', eventData =>
-      updatePicture(eventData),
+    DeviceEventEmitter.addListener('event.pictureupdate', async (newPictureURI) => {
+      if (newPictureURI) {
+        const base64 = await FileSystem.readAsStringAsync(newPictureURI);
+        setProfilePicture(base64);
+        await AsyncStorage.setItem('profilepicture', newPictureURI);
+      }
+    }
     );
     async function getImageFromAsyncStorage() {
       const fileUri = await AsyncStorage.getItem('profilepicture');
@@ -26,13 +31,6 @@ const Profile = ({ navigation }) => {
     };
   }, []);
 
-  const updatePicture = async (newPictureURI: string) => {
-    if (newPictureURI) {
-      const base64 = await FileSystem.readAsStringAsync(newPictureURI);
-      setProfilePicture(base64);
-      await AsyncStorage.setItem('profilepicture', newPictureURI);
-    }
-  };
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

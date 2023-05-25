@@ -33,16 +33,12 @@ export default function TakePicture({ navigation }) {
     const photo = await cameraRef.current.takePictureAsync(options);
     console.debug(Object.keys(photo))
     if (photo.uri) {
-      // console.log(photo.uri)
-      // AsyncStorage.clear();
       const fileBase64 = await FileSystem.readAsStringAsync(photo.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-      const fileName = 'profileImage';
-      const fileUri = `${FileSystem.documentDirectory}${fileName}`;
-      await FileSystem.writeAsStringAsync(fileUri, fileBase64);
+      await FileSystem.writeAsStringAsync(photo.uri, fileBase64);
       console.log('Image saved to file system.');
-      DeviceEventEmitter.emit('event.pictureupdate', fileUri);
+      DeviceEventEmitter.emit('event.pictureupdate', photo.uri);
       navigation.goBack();
     }
 
