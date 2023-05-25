@@ -1,20 +1,18 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import MapView, { LatLng, Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { useEffect, useState } from "react";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
-import { useIsFocused } from "@react-navigation/native";
 
 const Maps = () => {
   const [initialRegion, setInitialRegion]: any = useState();
   const [pin, setpin]: any = useState();
-  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     //
     const mapsPermissionFunction = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        console.log("Permission to access location was denied");
         return;
       }
 
@@ -36,22 +34,27 @@ const Maps = () => {
 
   return (
     <View style={styles.container}>
-      {initialRegion && (
-        <MapView
-          showsMyLocationButton={true}
-          showsUserLocation={true}
-          zoomControlEnabled={true}
-          provider={PROVIDER_GOOGLE}
-          initialRegion={initialRegion}
-          style={styles.map}
-        >
-          <Marker
-            coordinate={pin}
-            title={"Your current Location"}
-            description={"You are here"}
-          />
-        </MapView>
-      )}
+      {initialRegion ?
+        (
+          <MapView
+            showsMyLocationButton={true}
+            showsUserLocation={true}
+            zoomControlEnabled={true}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={initialRegion}
+            style={styles.map}
+          >
+            <Marker
+              coordinate={pin}
+              title={"Your current Location"}
+              description={"You are here"}
+            />
+          </MapView>
+        ) :
+        (
+          <ActivityIndicator />
+        )
+      }
     </View>
   );
 };
