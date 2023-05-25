@@ -3,7 +3,6 @@ import { useRef, useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DeviceEventEmitter } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function TakePicture({ navigation }) {

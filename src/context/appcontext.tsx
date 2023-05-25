@@ -10,23 +10,21 @@ const AppContextProvider = ({ children }: any) => {
     firstName: "Mubashira",
     lastName: "Khan",
   });
-
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     AsyncStorage.getItem("context_counter").then(value => {
-        console.log({value});
-
-        if(value) setCounter(Number(value));
+      console.log({ value });
+      if (value) setCounter(Number(value));
     });
   }, []);
-  
+
   const updateCounter = (newValue: number) => {
     setCounter(newValue);
-    AsyncStorage.setItem("context_counter",newValue.toString());
+    AsyncStorage.setItem("context_counter", newValue.toString());
   };
   return (
-    <AppContext.Provider value={{ user, counter,  updateCounter }}>
+    <AppContext.Provider value={{ user, counter, updateCounter }}>
       {children}
     </AppContext.Provider>
   );
