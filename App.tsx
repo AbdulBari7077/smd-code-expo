@@ -21,12 +21,11 @@ const Stack = createStackNavigator();
 
 export default function App() {
 
-  
+
   useEffect(() => {
 
     const registerForPushNotificationsAsync = async () => {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
+      const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
 
       // If the existing status is not granted, request permission from the user
@@ -43,7 +42,7 @@ export default function App() {
         console.log(
           "FirebaseNotificationInit  notification Permissions Granted!"
         );
-        
+
       }
     };
 

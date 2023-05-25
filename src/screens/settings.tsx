@@ -8,7 +8,7 @@ const Setting = () => {
   const [lastName, setLastName] = useState("");
   const [inFinalYear, setInFinalYear] = useState(false);
 
-  const {user, counter, setCounter} = useContext(AppContext);
+  const { user, counter, setCounter } = useContext(AppContext);
 
   useEffect(() => {
     AsyncStorage.getItem("settings").then((settingsStr) => {
@@ -39,32 +39,30 @@ const Setting = () => {
     ]);
   };
   return (
-    <AppContextProvider>
-      <View style={{ padding: 10 }}>
-        <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-          
-          Value of counter: {counter}
-        </Text>
-        <TextInput
-          placeholder="Enter first name: "
-          value={firstName}
-          onChangeText={(newText) => setFirstName(newText)}
+    <View style={{ padding: 10 }}>
+      <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+
+        Value of counter: {counter}
+      </Text>
+      <TextInput
+        placeholder="Enter first name: "
+        value={firstName}
+        onChangeText={(newText) => setFirstName(newText)}
+      />
+      <TextInput
+        placeholder="Enter last name: "
+        value={lastName}
+        onChangeText={(newText) => setLastName(newText)}
+      />
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text>In Final Year</Text>
+        <Switch
+          value={inFinalYear}
+          onChange={() => setInFinalYear(!inFinalYear)}
         />
-        <TextInput
-          placeholder="Enter last name: "
-          value={lastName}
-          onChangeText={(newText) => setLastName(newText)}
-        />
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text>In Final Year</Text>
-          <Switch
-            value={inFinalYear}
-            onChange={() => setInFinalYear(!inFinalYear)}
-          />
-        </View>
-        <Button title="Save" onPress={saveData} />
       </View>
-    </AppContextProvider>
+      <Button title="Save" onPress={saveData} />
+    </View>
   );
 };
 
