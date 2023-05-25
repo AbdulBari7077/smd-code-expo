@@ -8,11 +8,10 @@ const Maps = () => {
   const [initialRegion, setInitialRegion]: any = useState();
   const [pin, setpin]: any = useState();
   const [errorMsg, setErrorMsg] = useState("");
-  const isFocused = useIsFocused();
 
   useEffect(() => {
-    // 
-    (async () => {
+    //
+    const mapsPermissionFunction = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
@@ -31,9 +30,9 @@ const Maps = () => {
         latitude: location?.coords?.latitude,
         longitude: location?.coords?.longitude,
       });
-
-    })();
-  }, [isFocused]);
+    };
+    mapsPermissionFunction();
+  }, []);
 
   return (
     <View style={styles.container}>

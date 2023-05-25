@@ -1,9 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useContext, useEffect, useState } from "react";
 
-const AppContext = createContext<any | null>(null);
-
-export const useAppContext = () => useContext(AppContext);
+export const AppContext = createContext<any | null>(null);
 
 const AppContextProvider = ({ children }: any) => {
   const [user, setUser] = useState({

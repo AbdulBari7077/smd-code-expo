@@ -1,15 +1,14 @@
 import { View, Text, TextInput, Button, Switch, Alert } from "react-native";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AppContextProvider from "../context/appcontext";
-import { useAppContext } from "../context/appcontext";
+import AppContextProvider, { AppContext } from "../context/appcontext";
 
 const Setting = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [inFinalYear, setInFinalYear] = useState(false);
 
-  const {user, counter, setCounter} = useAppContext();
+  const {user, counter, setCounter} = useContext(AppContext);
 
   useEffect(() => {
     AsyncStorage.getItem("settings").then((settingsStr) => {

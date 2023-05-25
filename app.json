@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "smd-final",
-    "slug": "smd",
+    "slug": "final-smd-code",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +23,7 @@
           "apiKey": "AIzaSyA3FzKFHiA7bUcmOaubinG6wqCZt8Dw7Yk"
         }
       },
+      "googleServicesFile": "./google-services.json",
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
@@ -33,7 +34,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jamilh1234.smdcode"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -60,9 +62,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "48b32c5d-a0f1-4d41-a1bb-487792eacee7"
+        "projectId": "a08d62ab-6846-429e-bbcd-02850ba0d502"
       }
     },
-    "owner": "abdulbari7077"
+    "owner": "jamilh1234"
   }
 }

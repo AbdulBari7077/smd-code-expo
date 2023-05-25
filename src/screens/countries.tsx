@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAppContext } from "../context/appcontext";
 
 const CountriesList = ({ navigation }: any) => {
 

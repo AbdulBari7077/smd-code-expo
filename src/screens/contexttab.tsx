@@ -1,8 +1,9 @@
 import { Button, StyleSheet, Text, View } from "react-native";
-import { useAppContext } from "../context/appcontext";
+import { AppContext } from "../context/appcontext";
+import { useContext } from "react";
 
 const ContextTab = () => {
-  const { user, counter, updateCounter } = useAppContext();
+  const { user, counter, updateCounter } = useContext(AppContext);
   const addCounter = () => {
     updateCounter(counter + 1);
   };
