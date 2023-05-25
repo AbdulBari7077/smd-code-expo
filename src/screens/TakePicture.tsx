@@ -31,7 +31,6 @@ export default function TakePicture({ navigation }) {
   const takeSnap = async () => {
     const options = { quality: 1, base64: true };
     const photo = await cameraRef.current.takePictureAsync(options);
-    console.log(photo);
     if (photo.uri) {
       await FileSystem.writeAsStringAsync(photo.uri, photo.base64);
       console.log('Image saved to file system.');
