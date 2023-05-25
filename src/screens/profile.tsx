@@ -2,6 +2,8 @@ import { View, TouchableOpacity, Image, StyleSheet, DeviceEventEmitter } from "r
 import { useState, useEffect } from "react";
 import MatIcons from "react-native-vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from 'expo-file-system';
+
 
 const Profile = ({ navigation }) => {
   // const navigation = useNavigation();
@@ -11,18 +13,25 @@ const Profile = ({ navigation }) => {
     DeviceEventEmitter.addListener('event.pictureupdate', eventData =>
       updatePicture(eventData),
     );
-    AsyncStorage.getItem('profilepicture').then(pic => { setProfilePicture(pic) });
+    async function getImageFromAsyncStorage() {
+      const fileUri = await AsyncStorage.getItem('profilepicture');
+      const base64 = await FileSystem.readAsStringAsync(fileUri); // Read the base64 string from the file
+      setProfilePicture(base64);
+    }
+    getImageFromAsyncStorage();
     return () => {
       DeviceEventEmitter.removeAllListeners('event.pictureupdate');
     };
   }, []);
 
-  const updatePicture = (newPicture: string) => {
-    if (newPicture) {
-      setProfilePicture(newPicture);
-      AsyncStorage.setItem('profilepicture', newPicture);
+  const updatePicture = async (newPictureURI: string) => {
+    if (newPictureURI) {
+      const base64 = await FileSystem.readAsStringAsync(newPictureURI);
+      setProfilePicture(base64);
+      await AsyncStorage.setItem('profilepicture', newPictureURI);
     }
   };
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <TouchableOpacity

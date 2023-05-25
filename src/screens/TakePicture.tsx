@@ -39,8 +39,11 @@ export default function TakePicture({ navigation }) {
       const fileBase64 = await FileSystem.readAsStringAsync(photo.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
-      // console.log(fileBase64);
-      DeviceEventEmitter.emit('event.pictureupdate', fileBase64);
+      const fileName = 'profileImage';
+      const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+      await FileSystem.writeAsStringAsync(fileUri, fileBase64);
+      console.log('Image saved to file system.');
+      DeviceEventEmitter.emit('event.pictureupdate', fileUri);
       navigation.goBack();
     }
 
