@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import FirebaseNotificationInit from "../components/FireBaseNotification";
 
 const CountriesList = ({ navigation }: any) => {
   const [countries, setCountries] = useState([]);
@@ -77,26 +78,35 @@ const CountriesList = ({ navigation }: any) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center" }}>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <View style={{ flex: 1 }}>
-          <Text
-            style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
-          >
-            Countries Of the World
-          </Text>
-          <TextInput
-            placeholder="Search Country"
-            style={{ padding: 15, borderColor: "gray", borderWidth: 1, margin: 5, borderRadius: 15 }}
-            value={searchQuery}
-            onChangeText={handleSearch}
-          />
-          <FlatList data={filteredCountries} renderItem={displayCountry} />
-        </View>
-      )}
-    </View>
+    <>
+      <FirebaseNotificationInit navigation={navigation} />
+      <View style={{ flex: 1, justifyContent: "center" }}>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          <View style={{ flex: 1 }}>
+            <Text
+              style={{ textAlign: "center", fontWeight: "bold", fontSize: 20 }}
+            >
+              Countries Of the World
+            </Text>
+            <TextInput
+              placeholder="Search Country"
+              style={{
+                padding: 15,
+                borderColor: "gray",
+                borderWidth: 1,
+                margin: 5,
+                borderRadius: 15,
+              }}
+              value={searchQuery}
+              onChangeText={handleSearch}
+            />
+            <FlatList data={filteredCountries} renderItem={displayCountry} />
+          </View>
+        )}
+      </View>
+    </>
   );
 };
 

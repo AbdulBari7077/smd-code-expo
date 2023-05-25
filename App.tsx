@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import CountriesList from "./src/screens/countries";
@@ -20,7 +20,10 @@ import * as Notifications from "expo-notifications";
 const Stack = createStackNavigator();
 
 export default function App() {
+
+  
   useEffect(() => {
+
     const registerForPushNotificationsAsync = async () => {
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
@@ -40,10 +43,12 @@ export default function App() {
         console.log(
           "FirebaseNotificationInit  notification Permissions Granted!"
         );
-        FirebaseNotificationInit();
+        
       }
     };
+
     registerForPushNotificationsAsync();
+
   }, []);
 
   return (
